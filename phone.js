@@ -12,7 +12,8 @@ const phoneSearch = () => {
 const showPhoneDetails = (phones) => {
     const main = document.getElementById('main');
     main.textContent = '';
-    for (const phone of phones) {
+    const twentyPhones = phones.slice(0, 20)
+    for (const phone of twentyPhones) {
         // console.log(phone.image);
         const div = document.createElement('div');
         div.classList.add('col-md-4', 'col-sm-12')
@@ -38,6 +39,7 @@ const loadDetails = (slug) => {
 };
 const setDetails = (info) => {
     console.log(info);
+    const error2 = document.getElementById('error2');
     const phoneDetails = document.getElementById('phone-details');
     phoneDetails.textContent = '';
     const div = document.createElement('div');
@@ -47,10 +49,9 @@ const setDetails = (info) => {
     <div class="card-body">
         <h5 class="card-title"><u>Name :</u> ${info.name}</h5>
 
-        <h5 class="card-title"><u>Relase Date :</u> ${info.releaseDate}</h5>
-        
+    <h5 class="card-title"><u>Relase Date :</u> ${info.releaseDate ? info.releaseDate : 'No Date'}</h5>
 
-        <h5 class="card-title"><u>Sensor :</u><br> ${info.mainFeatures.sensors[0]}</h5>
+     <h5 class="card-title"><u>Sensor :</u><br> ${info.mainFeatures.sensors[0]}</h5>
         <h5 class="card-title">${info.mainFeatures.sensors[1]}</h5>
         <h5 class="card-title"> ${info.mainFeatures.sensors[2]}</h5>
         <h5 class="card-title"> ${info.mainFeatures.sensors[3]}</h5>
