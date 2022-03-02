@@ -2,7 +2,6 @@ const phoneSearch = () => {
     const searchPhone = document.
         getElementById('phone-search').value;
     document.getElementById('phone-search').value = '';
-
     const error = document.getElementById('error');
     if (searchPhone == 'oppo' || searchPhone == 'huawei' || searchPhone == 'iphone' || searchPhone == 'samsung') {
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchPhone}`;
@@ -11,21 +10,17 @@ const phoneSearch = () => {
             .then(res => res.json())
             .then(data => showPhoneDetails(data.data));
         error.innerHTML = '';
-
     }
     else {
-        error.innerText = 'This type of phone is not here ';
+        error.innerText = 'This type of phone is not here';
         main.innerHTML = '';
-        phoneDetails = '';
     }
 };
-
 const showPhoneDetails = (phones) => {
     const main = document.getElementById('main');
     main.textContent = '';
     const twentyPhones = phones.slice(0, 20)
     for (const phone of twentyPhones) {
-        // console.log(phone.image);
         const div = document.createElement('div');
         div.classList.add('col-md-4', 'col-sm-12')
         div.innerHTML = `
@@ -40,7 +35,6 @@ const showPhoneDetails = (phones) => {
 </div>
         `;
         main.appendChild(div);
-
     }
 };
 // for details button information
@@ -51,15 +45,14 @@ const loadDetails = (slug) => {
         .then(data => setDetails(data.data));
 };
 const setDetails = (info) => {
-    const phoneDetails = document.getElementById('phone-details');
-    phoneDetails.textContent = '';
+    const details = document.getElementById('phone-details');
+    details.innerText = '';
     const div = document.createElement('div');
     div.innerHTML = `
     <div class="card mb-5 border border-4 border-dark border-radius=5">
-    <img height="400" width="300" src="${info.image}"
+        <img height="400" width="300" src="${info.image}"
     <div class="card-body">
         <h5 class="card-title"><u>Name :</u> ${info.name}</h5>
-
     <h5 class="card-title"><u>Relase Date :</u> ${info.releaseDate ? info.releaseDate : 'No Date'}</h5>
 
      <h5 class="card-title"><u>Sensor :</u><br> ${info.mainFeatures.sensors[0]}</h5>
@@ -83,7 +76,6 @@ const setDetails = (info) => {
 
     </div>
     `;
-    phoneDetails.appendChild(div);
-
-}
+    details.appendChild(div);
+};
 
