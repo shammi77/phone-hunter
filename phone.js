@@ -2,8 +2,8 @@ const phoneSearch = () => {
     const searchPhone = document.
         getElementById('phone-search').value;
     document.getElementById('phone-search').value = '';
-    const error = document.getElementById('error');
 
+    const error = document.getElementById('error');
     if (searchPhone == 'oppo' || searchPhone == 'huawei' || searchPhone == 'iphone' || searchPhone == 'samsung') {
         const url = `https://openapi.programming-hero.com/api/phones?search=${searchPhone}`;
         // console.log(url);
@@ -11,13 +11,15 @@ const phoneSearch = () => {
             .then(res => res.json())
             .then(data => showPhoneDetails(data.data));
         error.innerHTML = '';
-    }
 
+    }
     else {
         error.innerText = 'This type of phone is not here ';
-
+        main.innerHTML = '';
+        phoneDetails = '';
     }
 };
+
 const showPhoneDetails = (phones) => {
     const main = document.getElementById('main');
     main.textContent = '';
@@ -27,7 +29,7 @@ const showPhoneDetails = (phones) => {
         const div = document.createElement('div');
         div.classList.add('col-md-4', 'col-sm-12')
         div.innerHTML = `
-        <div class="card" style="width: 18rem;">
+        <div class="card mb-5 border border-4 border-dark rounded">
             <img src=" ${phone.image}" class="card-img-top" alt="">
         <div class="card-body">
             <h5 class="card-title">Name: ${phone.phone_name} </h5>
@@ -38,8 +40,10 @@ const showPhoneDetails = (phones) => {
 </div>
         `;
         main.appendChild(div);
+
     }
 };
+// for details button information
 const loadDetails = (slug) => {
     const url = `https://openapi.programming-hero.com/api/phone/${slug}`;
     fetch(url)
@@ -47,14 +51,12 @@ const loadDetails = (slug) => {
         .then(data => setDetails(data.data));
 };
 const setDetails = (info) => {
-    console.log(info);
-    const error2 = document.getElementById('error2');
     const phoneDetails = document.getElementById('phone-details');
     phoneDetails.textContent = '';
     const div = document.createElement('div');
-    div.classList.add('card');
     div.innerHTML = `
-    <img src="${info.image}"
+    <div class="card mb-5 border border-4 border-dark border-radius=5">
+    <img height="400" width="300" src="${info.image}"
     <div class="card-body">
         <h5 class="card-title"><u>Name :</u> ${info.name}</h5>
 
@@ -82,5 +84,6 @@ const setDetails = (info) => {
     </div>
     `;
     phoneDetails.appendChild(div);
+
 }
 
