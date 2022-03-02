@@ -2,12 +2,21 @@ const phoneSearch = () => {
     const searchPhone = document.
         getElementById('phone-search').value;
     document.getElementById('phone-search').value = '';
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchPhone}`;
-    // console.log(url);
-    fetch(url)
-        .then(res => res.json())
-        .then(data => showPhoneDetails(data.data));
+    const error = document.getElementById('error');
 
+    if (searchPhone == 'oppo' || searchPhone == 'huawei' || searchPhone == 'iphone' || searchPhone == 'samsung') {
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchPhone}`;
+        // console.log(url);
+        fetch(url)
+            .then(res => res.json())
+            .then(data => showPhoneDetails(data.data));
+        error.innerHTML = '';
+    }
+
+    else {
+        error.innerText = 'This type of phone is not here ';
+
+    }
 };
 const showPhoneDetails = (phones) => {
     const main = document.getElementById('main');
@@ -74,3 +83,4 @@ const setDetails = (info) => {
     `;
     phoneDetails.appendChild(div);
 }
+
